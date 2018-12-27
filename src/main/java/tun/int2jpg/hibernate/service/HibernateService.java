@@ -1,29 +1,23 @@
 package tun.int2jpg.hibernate.service;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateService {
 
-    // read configuration and build session factory
-    final StandardServiceRegistry registry =new StandardServiceRegistryBuilder()
-                    .configure("hibernate_cfg.xml")
-                    .build();
+    static Session session;
+    static SessionFactory sessionFactory;
 
-    SessionFactory sessionFactory = null;
+    public static SessionFactory buildSessionFactory() {
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+        Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 
-    public HibernateService(){
-        try {
-            sessionFactory = new MetadataSources(registry)
-                    .buildMetadata()
-                    .buildSessionFactory();
-        }
-        catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
+        // Creating Hibernate SessionFactory Instance
+        sessionFactory = metaData.getSessionFactoryBuilder().build();
+        return sessionFactory;
     }
-
-
 }
