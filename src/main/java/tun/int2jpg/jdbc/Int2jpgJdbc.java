@@ -1,9 +1,12 @@
-package tun.int2jpg.dao;
+package tun.int2jpg.jdbc;
 
 
 import java.sql.*;
 
-public class Int2jpgDao {
+/**
+ *
+ */
+public class Int2jpgJdbc {
 
     private static final String URL = "jdbc:postgresql://db";
     private static final String USER_NAME = "user_name";

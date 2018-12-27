@@ -1,7 +1,7 @@
-import tun.int2jpg.dao.Int2jpgDao;
+import tun.int2jpg.jdbc.Int2jpgJdbc;
 
 public class TestJdbc {
     public static void main(String[] args) {
-        Int2jpgDao.runSqlAndPrintColumn("sql","column");
+        Int2jpgJdbc.runSqlAndPrintColumn("sql","column");
     }
 }
