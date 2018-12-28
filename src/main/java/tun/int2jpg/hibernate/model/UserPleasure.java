@@ -3,35 +3,41 @@ package tun.int2jpg.hibernate.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "YARDIM")
-@NamedQueries({@NamedQuery(name = "Yardim.findById", query = "SELECT y FROM Yardim y WHERE y.id = :id"),
-               @NamedQuery(name = "Yardim.findAll", query = "SELECT y FROM Yardim y")})
+@Table(name = "sp_user_pleasure")
 public class UserPleasure {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "Yardim_Seq_Gen")
-    @SequenceGenerator(name = "Yardim_Seq_Gen", sequenceName = "S_YARDIM")
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false, precision = 19, scale = 0)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "p_id", nullable = false)
     private Long id;
-    @Basic(optional = true)
-    @Column(name = "DOSYA_ID", nullable = true, precision = 19, scale = 0)
-    private Long dosyaId;
-    @Basic(optional = false)
+
+    @ManyToOne
+    @JoinColumn(name="user_name")
+    User user;
+
     @NotNull
-    @Column(name = "BASLIK", nullable = false, length = 200)
-    private String baslik;
+    @Column(name = "date", nullable = false)
+    private Date date;
+
     @NotNull
-    @Column(name = "ICERIK", length = 10485760)
-    private String icerik;
-    @NotNull
-    @Column(name = "REFERANS_SAYFA", length = 10485760)
-    private String referansSayfa;
-    @Basic(optional = false)
-    @Column(name = "AKTIF", nullable = false)
-    private boolean aktif;
+    @Column(name = "pleasure", nullable = false)
+    private Character pleasure;
+
+    @Transient
+    private Long pleasureCount;
+
+    public UserPleasure(){
+
+    }
+
+    public UserPleasure(Character pleasure, Long pleasureCount){
+        this.pleasure = pleasure;
+        this.pleasureCount = pleasureCount;
+    }
 
     public Long getId() {
         return id;
@@ -41,43 +47,35 @@ public class UserPleasure {
         this.id = id;
     }
 
-    public Long getDosyaId() {
-        return dosyaId;
+    public User getUser() {
+        return user;
     }
 
-    public void setDosyaId(Long dosyaId) {
-        this.dosyaId = dosyaId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getBaslik() {
-        return baslik;
+    public Date getDate() {
+        return date;
     }
 
-    public void setBaslik(String baslik) {
-        this.baslik = baslik;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getIcerik() {
-        return icerik;
+    public Character getPleasure() {
+        return pleasure;
     }
 
-    public void setIcerik(String icerik) {
-        this.icerik = icerik;
+    public void setPleasure(Character pleasure) {
+        this.pleasure = pleasure;
     }
 
-    public String getReferansSayfa() {
-        return referansSayfa;
+    public Long getPleasureCount() {
+        return pleasureCount;
     }
 
-    public void setReferansSayfa(String referansSayfa) {
-        this.referansSayfa = referansSayfa;
-    }
-
-    public boolean isAktif() {
-        return aktif;
-    }
-
-    public void setAktif(boolean aktif) {
-        this.aktif = aktif;
+    public void setPleasureCount(Long pleasureCount) {
+        this.pleasureCount = pleasureCount;
     }
 }

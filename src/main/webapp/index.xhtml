@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>PrimeFaces Hello World Example</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:panel header="Login Panel" rendered="#{!applicationBean.currentUser.logined}" id="loginPanel">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputText value="User Name: " />
+                <p:inputText value="#{applicationBean.userName}" />
+
+                <h:outputText value="Password: " />
+                <p:password value="#{applicationBean.password}" />
+
+                <p:commandButton id="loginButton" value="Login" update="@form"
+                                 actionListener="#{applicationBean.loginSignup(true)}"
+                                 oncomplete="PF('messageDialog').show()"/>
+
+                <p:commandButton id="signupButton" value="Signup" update="@form"
+                                 actionListener="#{applicationBean.loginSignup(false)}"
+                                 oncomplete="PF('messageDialog').show()"/>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:panel header="User Panel" rendered="#{applicationBean.currentUser.logined}" id="userPanel">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="User Name: #{applicationBean.currentUser.userName}" />
+                <p:commandButton id="logoutButton" value="Logout" update="@form"
+                                 actionListener="#{applicationBean.logout()}"
+                                 oncomplete="PF('messageDialog').show()"/>
+
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="pleasureRadio" value="Pleasure:" />
+                    <p:selectOneRadio id="pleasureRadio" value="#{applicationBean.pleasure}">
+                        <f:selectItem itemLabel="Happy" itemValue="H" />
+                        <f:selectItem itemLabel="Sad"   itemValue="S" />
+                        <f:selectItem itemLabel="Angry" itemValue="A" />
+                        <f:selectItem itemLabel="Quiet" itemValue="Q" />
+                    </p:selectOneRadio>
+                </h:panelGrid>
+
+                <p:commandButton id="savePleasureButton" value="Save Pleasure" update="@form"
+                                 actionListener="#{applicationBean.savePleasure()}"
+                                 oncomplete="PF('messageDialog').show()"/>
+
+                <p:chart type="bar" rendered="#{applicationBean.pleasureReportModel != null}" model="#{applicationBean.pleasureReportModel}" style="height:300px"/>
+
+            </h:panelGrid>
+        </p:panel>
+
+        <p:dialog header="Message" widgetVar="messageDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="messageDialogPanel" columns="1" cellpadding="4">
+                <h:outputText value="#{applicationBean.message}" />
+            </h:panelGrid>
+        </p:dialog>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <h:outputText value="Loading..." />
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

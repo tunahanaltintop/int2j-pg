@@ -78,7 +78,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- Jetty Plugin -->
+                <!-- Jetty Plugin. For debug: Idea Maven Tool-Plugins-jetty-jetty:run right click and debug -->
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty-maven-plugin.version}</version>
