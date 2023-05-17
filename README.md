@@ -1,4 +1,4 @@
-<p>A project of Java Programming on PostgreSQL Database training.</p>
+<p>A project of Java Programming on PostgreSQL Database training for Teaching Purpose</p>
 
 <ul>
     <li>Maven structure</li>
